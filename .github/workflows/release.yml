@@ -1,0 +1,48 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21'
+          cache: true
+
+      - name: Create dist directory
+        run: mkdir -p dist
+
+      - name: Build
+        run: |
+          GOOS=linux GOARCH=amd64 go build -o dist/musmark-linux-amd64
+          GOOS=linux GOARCH=arm64 go build -o dist/musmark-linux-arm64
+          GOOS=darwin GOARCH=amd64 go build -o dist/musmark-darwin-amd64
+          GOOS=darwin GOARCH=arm64 go build -o dist/musmark-darwin-arm64
+          GOOS=windows GOARCH=amd64 go build -o dist/musmark-windows-amd64.exe
+
+      - name: Create release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            dist/musmark-linux-amd64
+            dist/musmark-linux-arm64
+            dist/musmark-darwin-amd64
+            dist/musmark-darwin-arm64
+            dist/musmark-windows-amd64.exe
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
