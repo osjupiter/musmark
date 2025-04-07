@@ -5,7 +5,7 @@
 
 **musmark** is a Go CLI tool that manages templates and data in a single Markdown-compatible file, rendering Mustache templates with YAML data.
 
----
+
 
 ## ✨ Features
 
@@ -15,7 +15,7 @@
 - ⚡ easy to use single binary with Go
 
 
----
+
 
 ## 📦 Installation
 
@@ -29,7 +29,7 @@ Or for development, build locally:
 go build -o musmark
 ```
 
----
+
 
 ## 🧪 Usage
 
@@ -94,7 +94,6 @@ musmark -r collect_logs.md
 ```
 
 
----
 
 ## 🛠 Future Ideas
 
