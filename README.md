@@ -45,18 +45,24 @@ template
 {{#servers}}
 rsync -az {{user}}@{{host}}:{{log_path}} /logs/{{name}}/
 {{/servers}}
-...
+tar czf /logs/all_{{env}}_{{date}}.tar.gz /logs/*/
 ```
 
 data
 ===
 ```yaml
 env: production
+date: "20250407"
 servers:
   - name: app1
     host: app1.prod.example.com
     user: syslog
-...
+  - name: app2
+    host: app2.prod.example.com
+    user: syslog
+  - name: db
+    host: db.prod.example.com
+    user: dbadmin
 ```
 ````
 
