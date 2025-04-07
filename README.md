@@ -68,13 +68,18 @@ servers:
 
 This template will generate commands like:
 
-```bash
+````markdown
+result
+===
+```
 #!/bin/bash
-rsync -az syslog@app1.prod.example.com:/var/log/app/*.log /logs/app1/
-rsync -az syslog@app2.prod.example.com:/var/log/app/*.log /logs/app2/
-rsync -az dbadmin@db.prod.example.com:/var/log/mysql/*.log /logs/db/
+rsync -az syslog@app1.prod.example.com: /logs/app1/
+rsync -az syslog@app2.prod.example.com: /logs/app2/
+rsync -az dbadmin@db.prod.example.com: /logs/db/
+
 tar czf /logs/all_production_20250407.tar.gz /logs/*/
 ```
+````
 
 The tool intelligently handles existing result blocks:
 - If no result block exists: Adds one at the end
